@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 
 # 1. Load the saved model and scaler
+# Ensure these files are in the same folder as this script in your GitHub repo
 model = pickle.load(open('titanic_model.pkl', 'rb'))
 scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 
@@ -31,8 +32,7 @@ pclass_high = 1 if pclass == "High (1st)" else 0
 pclass_mid = 1 if pclass == "Mid (2nd)" else 0
 pclass_low = 1 if pclass == "Low (3rd)" else 0
 
-# Create a DataFrame for the input
-# Note: The order must match X.columns from your training exactly!
+# Create the initial DataFrame
 input_data = pd.DataFrame({
     'has_cabin': [cabin_encoded],
     'Fare': [fare],
@@ -44,19 +44,25 @@ input_data = pd.DataFrame({
 })
 
 # Reorder columns to match the model's training order exactly
-# Based on your final_df: ['has_cabin', 'Fare', 'Pclass_High', 'Pclass_Mid', 'Pclass_Low', 'Sex']
-# (Note: You dropped Age in your final_df in cell 204, so I'm matching that logic)
+# Note: Keeping Age out of the final features if it was dropped during training
 feature_columns = ["has_cabin", "Fare", "Pclass_High", "Pclass_Mid", "Pclass_Low", "Sex"]
-input_final = input_data[feature_columns]
+input_final = input_data[feature_columns].copy()
 
-# Apply Scaling to Fare (since it was scaled in training)
-input_final[['Fare']] = scaler.transform(pd.DataFrame({'Age': [0], 'Fare': [fare]}))[['Fare']]
+# --- FIX: Apply Scaling to Fare ---
+# The scaler expects 'Age' and 'Fare' as input based on your previous error
+temp_scaling_df = pd.DataFrame({'Age': [age], 'Fare': [fare]})
+scaled_array = scaler.transform(temp_scaling_df)
+
+# Assign the scaled Fare value (index 1 of the returned array) to our input
+input_final.loc[0, 'Fare'] = scaled_array[0, 1]
 
 # --- Prediction Logic ---
 if st.button("Predict Survival"):
+    # Ensure input_final is shaped correctly for the model
     prediction = model.predict(input_final)
     probability = model.predict_proba(input_final)[0][1]
     
+    st.write("---") # Visual separator
     if prediction[0] == 1:
         st.success(f"✨ The passenger likely **Survived**! (Probability: {probability:.2%})")
         st.balloons()
