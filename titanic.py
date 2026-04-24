@@ -58,9 +58,9 @@ if st.button("Predict Survival"):
     
     st.write("---") 
     if prediction[0] == 1:
-        st.success(f"The passenger likely **Survived**!
+        st.success(f"The passenger likely **Survived**")
         st.balloons()
     else:
-        st.error(f"The passenger likely **Did Not Survive**.")
+        st.error(f"The passenger likely **Did Not Survive**")
 
 st.info("Note: This prediction is based on a Logistic Regression model trained on the Titanic dataset.")
