@@ -8,7 +8,7 @@ model = pickle.load(open('titanic_model.pkl', 'rb'))
 scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 
 # --- UI Header ---
-st.title("🚢 Titanic Survival Predictor")
+st.title("Titanic Survival Predictor")
 st.markdown("Enter the passenger details below to see if they would have survived the disaster.")
 
 # --- Sidebar / Input Section ---
@@ -55,13 +55,12 @@ input_final.loc[0, 'Fare'] = scaled_array[0, 1]
 # --- Prediction Logic ---
 if st.button("Predict Survival"):
     prediction = model.predict(input_final)
-    probability = model.predict_proba(input_final)[0][1]
     
     st.write("---") 
     if prediction[0] == 1:
-        st.success(f"✨ The passenger likely **Survived**! (Probability: {probability:.2%})")
+        st.success(f"The passenger likely **Survived**!
         st.balloons()
     else:
-        st.error(f"💀 The passenger likely **Did Not Survive**. (Probability of survival: {probability:.2%})")
+        st.error(f"The passenger likely **Did Not Survive**.")
 
 st.info("Note: This prediction is based on a Logistic Regression model trained on the Titanic dataset.")
