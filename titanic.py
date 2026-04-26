@@ -20,7 +20,6 @@ st.sidebar.markdown("""
         Enter the passenger details below to see if they would have survived.
     </p>
     """, unsafe_allow_html=True)
-st.sidebar.markdown("Enter the passenger details below to see if they would have survived.")
 
 age = st.sidebar.slider("Age", 0, 80, 25)
 fare = st.sidebar.number_input("Fare (Ticket Price)", 0, 512, 32)
