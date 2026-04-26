@@ -60,7 +60,6 @@ if st.button("Predict Survival", use_container_width=True):
     
     if prediction[0] == 1:
         st.success(f"### Result: Survived!")
-        st.balloons()
     else:
         st.error(f"### Result: Did Not Survive")
 
