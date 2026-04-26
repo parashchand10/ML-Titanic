@@ -6,6 +6,7 @@ import numpy as np
 # 1. Load the saved model and scaler
 model = pickle.load(open('titanic_model.pkl', 'rb'))
 scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
+columns = pickle.load(open('titanic_columns.pkl', 'rb'))
 
 # --- UI Header ---
 st.title("Titanic Survival Prediction")
@@ -49,10 +50,13 @@ input_dict = pd.DataFrame({
 
 input_df = pd.DataFrame(input_dict)
 
-# Apply Scaling to Fare (The scaler was fit on [Age, Fare])
-# Even if Age isn't a feature, the scaler expects it for the transformation
-scaled_vals = scaler.transform(pd.DataFrame({'Age': [age], 'Fare': [fare]}))
-input_df['Fare'] = scaled_vals[0][1] 
+# scale numeric columns
+input_df[['Age','Fare']] = scaler.transform(
+    input_df[['Age','Fare']].values
+)
+
+# reorder columns
+input_df = input_df.reindex(columns=columns)
 
 st.subheader("Final Prediction")
 
