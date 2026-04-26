@@ -83,13 +83,21 @@ input_df['Fare'] = scaled_vals[0][1]
 st.subheader("Final Prediction")
 
 if st.button("Predict Survival", use_container_width=True):
+ if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
     if prediction[0] == 1:
-        st.markdown('<div class="result-text survived">✨ Result: Likely Survived!</div>', unsafe_allow_html=True)
+        st.markdown('''
+            <div class="result-container">
+                <div class="result-text survived">✨ Result: Likely Survived!</div>
+            </div>
+            ''', unsafe_allow_html=True)
         st.balloons()
     else:
-        st.markdown('<div class="result-text died">💀 Result: Did Not Survive</div>', unsafe_allow_html=True)
-
+        st.markdown('''
+            <div class="result-container">
+                <div class="result-text died">💀 Result: Did Not Survive</div>
+            </div>
+            ''', unsafe_allow_html=True)
 st.markdown("---")
 st.info("Note: This prediction is based on the Logistic Regression model from your Titanic Dataset notebook.")
