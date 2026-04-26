@@ -57,7 +57,7 @@ st.subheader("Final Prediction")
 if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
-if prediction[0] == 1:
+    if prediction[0] == 1:
         st.markdown(f"""
             <div class="result-card survived-card">
                 <p class="status-text">Prediction Result</p>
@@ -65,7 +65,7 @@ if prediction[0] == 1:
             </div>
             """, unsafe_allow_html=True)
         st.balloons()
-else:
+    else:
         st.markdown(f"""
             <div class="result-card died-card">
                 <p class="status-text">Prediction Result</p>
