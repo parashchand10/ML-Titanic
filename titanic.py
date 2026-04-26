@@ -29,10 +29,10 @@ has_cabin = st.sidebar.radio("Has a Cabin?", ["Yes", "No"])
 is_female = 1 if gender == "Female" else 0
 cabin_encoded = 1 if has_cabin == "Yes" else 0
 
-# Handle Pclass Dummies
-pclass_high = 1 if pclass == "High (1st)" else 0
-pclass_mid = 1 if pclass == "Mid (2nd)" else 0
-pclass_low = 1 if pclass == "Low (3rd)" else 0
+# Map Pclass to One-Hot Dummies
+p_high = 1 if pclass == "High (1st)" else 0
+p_mid = 1 if pclass == "Mid (2nd)" else 0
+p_low = 1 if pclass == "Low (3rd)" else 0
 
 # Create a DataFrame for the input
 # Note: The order must match X.columns from your training exactly!
