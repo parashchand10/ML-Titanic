@@ -8,6 +8,10 @@ scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 columns = pickle.load(open('titanic_columns.pkl', 'rb'))
 
 st.title("Titanic Survival Prediction")
+st.markdown("Enter the passenger details below to see if they would have survived the disaster.")
+
+# --- Sidebar / Input Section ---
+st.sidebar.header("Passenger Details")
 
 age = st.sidebar.slider("Age", 0, 80, 25)
 fare = st.sidebar.number_input("Fare", 0, 512, 32)
