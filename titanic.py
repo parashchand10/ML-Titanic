@@ -7,6 +7,7 @@ model = pickle.load(open('titanic_model.pkl', 'rb'))
 scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 columns = pickle.load(open('titanic_columns.pkl', 'rb'))
 
+# --- UI Header ---
 st.title("Titanic Survival Prediction")
 st.markdown("Enter the passenger details below to see if they would have survived the disaster.")
 
