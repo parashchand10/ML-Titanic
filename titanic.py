@@ -55,7 +55,6 @@ scaled_vals = scaler.transform(pd.DataFrame({'Age': [age], 'Fare': [fare]}))
 input_df['Fare'] = scaled_vals[0][1] 
 
 st.subheader("Final Prediction")
-st.write("Click the button below to run the Logistic Regression model based on your sidebar inputs.")
 
 if st.button("Predict Survival", use_container_width=True):
     # Ensure columns match training order exactly
