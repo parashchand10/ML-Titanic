@@ -57,9 +57,22 @@ st.subheader("Final Prediction")
 if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
-    if prediction[0] == 1:
-        st.success(f"### Result: Survived!")
+  if prediction[0] == 1:
+        st.markdown(f"""
+            <div class="result-card survived-card">
+                <p class="status-text">Prediction Result</p>
+                <h1 class="main-result" style="color: #28a745;"> SURVIVED</h1>
+                <p style="color: #666;">Chance of survival: {probability:.1%}</p>
+            </div>
+            """, unsafe_allow_html=True)
+        st.balloons()
     else:
-        st.error(f"### Result: Did Not Survive")
+        st.markdown(f"""
+            <div class="result-card died-card">
+                <p class="status-text">Prediction Result</p>
+                <h1 class="main-result" style="color: #dc3545;"> NOT SURVIVED</h1>
+                <p style="color: #666;">Chance of survival: {probability:.1%}</p>
+            </div>
+            """, unsafe_allow_html=True)
 
 st.info("Note: This prediction is based on the Logistic Regression model from Titanic Dataset notebook.")
