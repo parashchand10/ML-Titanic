@@ -10,9 +10,9 @@ columns = pickle.load(open('titanic_columns.pkl', 'rb'))
 
 # --- UI Header ---
 st.title("🚢 Titanic Survival Prediction")
-st.markdown("Enter the passenger details below to see if they would have survived.")
 
 # --- Sidebar / Input Section ---
+st.sidebar.markdown("Enter the passenger details below to see if they would have survived.")
 st.sidebar.header("Passenger Details")
 
 age = st.sidebar.slider("Age", 0, 80, 25)
