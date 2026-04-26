@@ -62,9 +62,9 @@ if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
     if prediction[0] == 1:
-        st.success(f"### Result: Likely Survived!")
+        st.success(f"### Result: Survived!")
     else:
-        st.error(f"### Result: Likely Did Not Survive")
+        st.error(f"### Result: Did Not Survive")
 
 # --- Footer ---
 st.info("Note: This prediction is based on a Logistic Regression model trained on the Titanic dataset.")
