@@ -46,11 +46,16 @@ input_df[['Age','Fare']] = scaler.transform(
 # reorder
 input_df = input_df.reindex(columns=columns)
 
-# predict
-if st.button("Predict"):
-    prediction = model.predict(input_df)
+st.subheader("Final Prediction")
 
+if st.button("Predict Survival", use_container_width=True):
+    # Ensure columns match training order exactly
+    prediction = model.predict(input_df)
+    
     if prediction[0] == 1:
-        st.success("Survived")
+        st.success(f"### Result: Survived!")
     else:
-        st.error("Did Not Survive")
+        st.error(f"### Result: Did Not Survive")
+
+# --- Footer ---
+st.info("Note: This prediction is based on a Logistic Regression model trained on the Titanic dataset.")
