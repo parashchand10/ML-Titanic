@@ -13,7 +13,7 @@ st.title("Titanic Survival Predictor")
 st.markdown("Enter the passenger details below to see if they would have survived.")
 
 # --- Main Page Input Section (Single Column) ---
-st.header("Passenger Details")
+st.sidebar.header("Passenger Details")
 
 age = st.slider("Age", 0, 80, 25)
 fare = st.number_input("Fare (Ticket Price)", 0, 512, 32)
