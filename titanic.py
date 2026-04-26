@@ -58,12 +58,12 @@ if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
     
-    if prediction[0] == 1:
+  if prediction[0] == 1:
         # Custom HTML for a large, bold "SURVIVED" result
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
-                <p style="color: #28a745; font-size: 20px;">Prediction Result</p>
-                <h1 style="color: #28a745; font-size: 40px;">SURVIVED</h1>
+                <p style="color: #28a745; font-size: 20px; margin-bottom: -10px;">Prediction Result</p>
+                <h1 style="color: #28a745; font-size: 50px; font-weight: 900; margin: 0;">SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
         st.balloons()
@@ -71,8 +71,8 @@ if st.button("Predict Survival", use_container_width=True):
         # Custom HTML for a large, bold "NOT SURVIVED" result
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
-                <p style="color: #dc3545; font-size: 20px;">Prediction Result</p>
-                <h1 style="color: #dc3545; font-size: 40px;">NOT SURVIVED</h1>
+                <p style="color: #dc3545; font-size: 20px; margin-bottom: -10px;">Prediction Result</p>
+                <h1 style="color: #dc3545; font-size: 50px; font-weight: 900; margin: 0;">NOT SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
 
