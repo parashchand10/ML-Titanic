@@ -63,7 +63,7 @@ if st.button("Predict Survival", use_container_width=True):
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
                 <p style="color: #28a745; font-size: 20px;">Prediction Result</p>
-                <h1 style="color: #28a745; font-size: 50px;">SURVIVED</h1>
+                <h1 style="color: #28a745; font-size: 40px;">SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
         st.balloons()
@@ -72,7 +72,7 @@ if st.button("Predict Survival", use_container_width=True):
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
                 <p style="color: #dc3545; font-size: 20px;">Prediction Result</p>
-                <h1 style="color: #dc3545; font-size: 50px;">NOT SURVIVED</h1>
+                <h1 style="color: #dc3545; font-size: 40px;">NOT SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
 
