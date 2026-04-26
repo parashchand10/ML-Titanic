@@ -42,12 +42,15 @@ input_df = pd.DataFrame({
 })
 
 
-# match training column order automatically
+# match column order
 input_df = input_df.reindex(columns=columns)
 
+# scale only numeric columns used in training
+scale_cols = ['Age', 'Fare']
 
-# scale automatically
-input_scaled = scaler.transform(input_df)
+input_df[scale_cols] = scaler.transform(input_df[scale_cols])
+
+prediction = model.predict(input_df)
 
 
 if st.button("Predict"):
