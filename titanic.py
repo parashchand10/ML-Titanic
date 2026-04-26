@@ -35,10 +35,12 @@ input_df = pd.DataFrame({
     'is_Female':[is_female]
 })
 
-# scale first
-input_df[['Age','Fare']] = scaler.transform(input_df[['Age','Fare']])
+# scale numeric columns
+input_df[['Age','Fare']] = scaler.transform(
+    input_df[['Age','Fare']].values
+)
 
-# then match columns
+# reorder columns
 input_df = input_df.reindex(columns=columns)
 
 if st.button("Predict"):
