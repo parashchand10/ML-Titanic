@@ -9,17 +9,11 @@ scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 columns = pickle.load(open('titanic_columns.pkl', 'rb'))
 
 # --- UI Header ---
-st.title("🚢 Titanic Survival Prediction")
+st.title("Titanic Survival Prediction")
 
 # --- Sidebar / Input Section ---
-st.sidebar.markdown("""
-    <h1 style='font-size: 35px; font-weight: bold; margin-bottom: 0px;'>
-        Passenger Details
-    </h1>
-    <p style='font-size: 18px; margin-top: 0px;'>
-        Enter the passenger details below to see if they would have survived.
-    </p>
-    """, unsafe_allow_html=True)
+st.sidebar.header("Passenger Details")
+st.markdown("Enter the passenger details below to see if they would have survived the disaster.")
 
 age = st.sidebar.slider("Age", 0, 80, 25)
 fare = st.sidebar.number_input("Fare (Ticket Price)", 0, 512, 32)
