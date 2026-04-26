@@ -36,7 +36,7 @@ p_low = 1 if pclass == "Low (3rd)" else 0
 
 # Create a DataFrame for the input
 # Note: The order must match X.columns from your training exactly!
-input_data = pd.DataFrame({
+input_dict = pd.DataFrame({
     'has_cabin': [cabin_encoded],
     'Fare': [fare],
     'Pclass_High': [p_high],
