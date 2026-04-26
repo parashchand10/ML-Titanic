@@ -6,11 +6,15 @@ import pickle
 model = pickle.load(open('titanic_model.pkl', 'rb'))
 scaler = pickle.load(open('titanic_scaler.pkl', 'rb'))
 columns = pickle.load(open('titanic_columns.pkl', 'rb'))
+scale_cols = pickle.load(open('titanic_scale_cols.pkl', 'rb'))
 
+# UI
 st.title("Titanic Survival Prediction")
+st.markdown("Enter passenger details")
 
 st.sidebar.header("Passenger Details")
 
+# Inputs
 age = st.sidebar.slider("Age", 0, 80, 25)
 fare = st.sidebar.number_input("Fare", 0, 512, 32)
 gender = st.sidebar.selectbox("Gender", ["Male", "Female"])
@@ -19,8 +23,7 @@ sibsp = st.sidebar.number_input("Siblings/Spouses", 0, 10, 0)
 parch = st.sidebar.number_input("Parents/Children", 0, 10, 0)
 has_cabin = st.sidebar.radio("Has Cabin?", ["Yes", "No"])
 
-
-# encoding
+# Encoding
 is_female = 1 if gender == "Female" else 0
 cabin = 1 if has_cabin == "Yes" else 0
 
@@ -28,11 +31,11 @@ p_high = 1 if pclass == "High (1st)" else 0
 p_mid = 1 if pclass == "Mid (2nd)" else 0
 p_low = 1 if pclass == "Low (3rd)" else 0
 
-
-# create dataframe (no need order)
+# DataFrame (raw input)
 input_df = pd.DataFrame({
-    'has_cabin':[cabin],
+    'Age':[age],
     'Fare':[fare],
+    'has_cabin':[cabin],
     'Pclass_High':[p_high],
     'Pclass_Mid':[p_mid],
     'Pclass_Low':[p_low],
@@ -41,20 +44,17 @@ input_df = pd.DataFrame({
     'is_Female':[is_female]
 })
 
-
-# match column order
+# Match column order
 input_df = input_df.reindex(columns=columns)
 
-# scale only numeric columns used in training
-scale_cols = ['Age', 'Fare']
-
+# Apply scaling ONLY on trained columns
 input_df[scale_cols] = scaler.transform(input_df[scale_cols])
 
-prediction = model.predict(input_df)
+# Prediction
+st.subheader("Prediction")
 
-
-if st.button("Predict"):
-    prediction = model.predict(input_scaled)
+if st.button("Predict", use_container_width=True):
+    prediction = model.predict(input_df)
 
     if prediction[0] == 1:
         st.success("Survived")
