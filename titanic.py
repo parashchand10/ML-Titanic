@@ -31,8 +31,7 @@ p_high = 1 if pclass == "High (1st)" else 0
 p_mid = 1 if pclass == "Mid (2nd)" else 0
 p_low = 1 if pclass == "Low (3rd)" else 0
 
-# 2. Create the DataFrame with ALL features including Age
-# Note: Age MUST be here because your scaler and model expect it
+# Create the DataFrame with ALL features
 input_df = pd.DataFrame({
     'Age': [age],
     'has_cabin': [cabin_encoded],
@@ -45,11 +44,11 @@ input_df = pd.DataFrame({
     'is_Female': [is_female]
 })
 
-# 3. Apply Scaling to Age and Fare
+# Apply Scaling to Age and Fare
 # transform expects a 2D array of the numeric columns
 input_df[['Age', 'Fare']] = scaler.transform(input_df[['Age', 'Fare']])
 
-# 4. Ensure the column order matches your training exactly
+# Ensure the column order matches your training exactly
 input_df = input_df.reindex(columns=columns)
 
 # --- Prediction Result ---
