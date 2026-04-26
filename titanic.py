@@ -63,4 +63,4 @@ if st.button("Predict Survival", use_container_width=True):
     else:
         st.error(f"### Result: Did Not Survive")
 
-st.info("Note: This prediction is based on the Logistic Regression model from your Titanic Dataset notebook.")
+st.info("Note: This prediction is based on the Logistic Regression model from Titanic Dataset notebook.")
