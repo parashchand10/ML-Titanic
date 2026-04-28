@@ -1,4 +1,4 @@
-# Titanic Survival Prediction - Machine Learning
+# Titanic Survival Prediction using ML & Streamlit
 
 A machine learning project that predicts passenger survival based on demographic data using Logistic Regression.
 
