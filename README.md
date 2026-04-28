@@ -1,6 +1,7 @@
 # Titanic Survival Prediction - Machine Learning
 
 A machine learning project that predicts passenger survival based on demographic data using Logistic Regression.
+
 ---
 <img src="Titanic.png" alt="steamlit Project" width="1000" height="1000" />
 
@@ -12,7 +13,7 @@ Highlight what makes the project useful or interesting.
 - Data preprocessing and cleaning scripts.
 ---
 
-###Tech Stack
+### Tech Stack
 List the languages, libraries, and tools you used.
 - Language: Python
 - Libraries: Pandas, NumPy, Seaborn , Matplotlib, Scikit-Learn
