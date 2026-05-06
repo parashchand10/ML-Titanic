@@ -13,43 +13,51 @@ st.title("Titanic Survival Prediction")
 
 # --- Sidebar / Input Section ---
 st.sidebar.header("Passenger Details")
-st.sidebar.markdown("Enter the passenger details below to see if they would have survived the disaster.")
 
 age = st.sidebar.slider("Age", 0, 80, 25)
 fare = st.sidebar.number_input("Fare (Ticket Price)", 0, 512, 32)
 gender = st.sidebar.selectbox("Gender", ["Male", "Female"])
 pclass = st.sidebar.selectbox("Ticket Class", ["High (1st)", "Mid (2nd)", "Low (3rd)"])
+embarked = st.sidebar.selectbox("Port of Embarkation", ["Southampton", "Cherbourg", "Queenstown"])
 sibsp = st.sidebar.number_input("Siblings/Spouses Aboard", 0, 10, 0)
 parch = st.sidebar.number_input("Parents/Children Aboard", 0, 10, 0)
 has_cabin = st.sidebar.radio("Has a Cabin?", ["Yes", "No"])
 
-# --- Preprocessing (Sync with Colab Cell 1672) ---
+# --- Preprocessing (Aligned with Colab Cell [199]) ---
 is_female = 1 if gender == "Female" else 0
 cabin_encoded = 1 if has_cabin == "Yes" else 0
 
+# Pclass Logic
 p_high = 1 if pclass == "High (1st)" else 0
 p_mid = 1 if pclass == "Mid (2nd)" else 0
 p_low = 1 if pclass == "Low (3rd)" else 0
 
-# Create the DataFrame with ALL features
-input_df = pd.DataFrame({
-    'Age': [age],
-    'has_cabin': [cabin_encoded],
-    'Fare': [fare],
-    'Pclass_High': [p_high],
-    'Pclass_Mid': [p_mid],
-    'Pclass_Low': [p_low],
-    'SibSp': [sibsp],
-    'Parch': [parch],
-    'is_Female': [is_female]
-})
+# Embarked Logic (C=0, Q=1, S=2 based on LabelEncoder in Cell [166])
+emb_map = {"Cherbourg": 0, "Queenstown": 1, "Southampton": 2}
+emb_encoded = emb_map[embarked]
 
-# Apply Scaling to Age and Fare
-# transform expects a 2D array of the numeric columns
+# Create the DataFrame with ALL features in any order first
+input_data = {
+    'Age': age,
+    'has_cabin': cabin_encoded,
+    'Fare': fare,
+    'Pclass_High': p_high,
+    'Pclass_Mid': p_mid,
+    'Pclass_Low': p_low,
+    'Embarked': emb_encoded,
+    'SibSp': sibsp,
+    'Parch': parch,
+    'is_Female': is_female
+}
+
+input_df = pd.DataFrame([input_data])
+
+# Apply Scaling to Age and Fare (Matches Cell [201])
 input_df[['Age', 'Fare']] = scaler.transform(input_df[['Age', 'Fare']])
 
-# Ensure the column order matches your training exactly
-input_df = input_df.reindex(columns=columns)
+# IMPORTANT: Reindex to match the EXACT column order from X_train (Matches Cell [202])
+# X_train order: ['Age', 'has_cabin', 'Fare', 'Pclass_High', 'Pclass_Mid', 'Pclass_Low', 'Embarked', 'SibSp', 'Parch', 'is_Female']
+input_df = input_df[columns]
 
 # --- Prediction Result ---
 st.subheader("Final Prediction")
@@ -58,21 +66,16 @@ if st.button("Predict Survival", use_container_width=True):
     prediction = model.predict(input_df)
     
     if prediction[0] == 1:
-        # Custom HTML for a large, bold "SURVIVED" result
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
-                <p style="color: #28a745; font-size: 20px; margin-bottom: -10px;">Prediction Result</p>
                 <h1 style="color: #28a745; font-size: 50px; font-weight: 900; margin: 0;">SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
-    
     else:
-        # Custom HTML for a large, bold "NOT SURVIVED" result
         st.markdown(f"""
             <div style="text-align: center; padding: 20px;">
-                <p style="color: #dc3545; font-size: 20px; margin-bottom: -10px;">Prediction Result</p>
                 <h1 style="color: #dc3545; font-size: 50px; font-weight: 900; margin: 0;">NOT SURVIVED</h1>
             </div>
             """, unsafe_allow_html=True)
 
-st.info("Note: This prediction is based on the Logistic Regression model from Titanic Dataset notebook.")
+st.info("Note: This prediction is based on the KNN model saved from the Titanic Dataset notebook.")
